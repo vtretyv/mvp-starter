@@ -13,9 +13,11 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  quantity: Number,
-  name: String,
-  description: String
+  title: String, //item.snippet.title
+  description: String, //item.snippet.description
+  videoUrl: String, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+  channelTitle: String, //item.snippet.channelId
+  publishedAt: String //item.snippet.publishedAt
 });
 
 var Item = mongoose.model('Item', itemSchema);
@@ -33,7 +35,6 @@ var Item = mongoose.model('Item', itemSchema);
 //   });
 // };
 
-let newItem;
 // var save = (items,callback) => {
 //   items.forEach((item)=>{
 //   newItem = new Item({
@@ -55,18 +56,28 @@ var selectAll = ()=>{
   })
 };
 
+var clearDb = () =>{
+  db.items.remove({});
+}
+
 //Pass save an array of items
-var save = (items) => {
+let newItem;
+
+let save = (items) => {
   items.forEach((item)=>{
     newItem = new Item({
-    quantity: item.quantity,
-    name: item.name,
-    description: item.description
-    });
-    newItem.save((err,data) =>{
-      if (err) {throw err};
-    });
+    title: item.snippet.title, //item.snippet.title
+    description: item.snippet.description, //item.snippet.description
+    videoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+    channelTitle:item.snippet.channelId, //item.snippet.channelId
+    publishedAt: item.snippet.publishedAt, //item.snippet.publishedAt
+  })
+  
+  newItem.save((err,data) =>{
+    if (err) {throw err};
+  });
   });
 }
+
 
 module.exports.selectAll = selectAll;

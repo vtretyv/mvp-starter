@@ -50,6 +50,8 @@ app.post('/items', (req, res) => {
     //Now have access to this in the promise
       //Can put them into the database now once I import database file
         //db.save them;
+        console.log(videos);
+        
     
     
   })
@@ -59,6 +61,14 @@ app.post('/items', (req, res) => {
   res.end();
 });
 app.get('/items', function (req, res) {
+
+  // items.selectAll(function(err, data) {
+  //   if(err) {
+  //     res.sendStatus(500);
+  //   } else {
+  //     res.json(data);
+  //   }
+  // });
   items.selectAll().then((results)=>{
     res.status(200);
     res.json(results);

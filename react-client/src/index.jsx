@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Searches from './components/Searches.jsx';
+
+const divStyle = {
+  textAlign: 'center'
+}
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +53,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style = {divStyle}>
         <h1>Vidify</h1>
         <List items={this.state.items}/>
         <Searches onSearch={this.search} onSearch={this.search}/>
