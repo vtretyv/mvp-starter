@@ -3,9 +3,9 @@ import ListItem from './ListItem.jsx';
 
 const List = (props) => (
   <div>
-    <h4> List Component </h4>
-    There are { props.items.length } items.
-    { props.items.map(item => <ListItem item={item}/>)}
+    <h4> Enter Either a query term or a channel term</h4>
+    There are { props.items.length } videos.
+    {props.items.map(item => <ListItem item={item}/>)}
   </div>
 )
 

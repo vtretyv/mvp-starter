@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
+let Promise = require('bluebird');
 
 var db = mongoose.connection;
 
@@ -13,19 +14,59 @@ db.once('open', function() {
 
 var itemSchema = mongoose.Schema({
   quantity: Number,
+  name: String,
   description: String
 });
 
 var Item = mongoose.model('Item', itemSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
+
+//With callbacks
+// var selectAll = function(callback) {
+
+//   Item.find({}, function(err, items) {
+//     if(err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, items);
+//     }
+//   });
+// };
+
+let newItem;
+// var save = (items,callback) => {
+//   items.forEach((item)=>{
+//   newItem = new Item({
+//     quantity: item.quantity,
+//     name: item.name,
+//     description: item.description
+//   });
+//   newItem.save((err,data) =>{
+//     if (err) {throw err};
+//     callback(data); //Callback here?
+//   });
+//   });
+// }
+
+//With Promises
+var selectAll = ()=>{
+  return new Promise((resolve,reject)=>{
+    resolve(Item.find({}));
+  })
 };
+
+//Pass save an array of items
+var save = (items) => {
+  items.forEach((item)=>{
+    newItem = new Item({
+    quantity: item.quantity,
+    name: item.name,
+    description: item.description
+    });
+    newItem.save((err,data) =>{
+      if (err) {throw err};
+    });
+  });
+}
 
 module.exports.selectAll = selectAll;
