@@ -11,7 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      items: [],
+      showPlayer: false,
     }
   }
 
@@ -57,6 +58,11 @@ class App extends React.Component {
         <h1>Vidify</h1>
         <List items={this.state.items}/>
         <Searches onSearch={this.search} onSearch={this.search}/>
+        <br/>
+        <button type='button'> Render Player </button>
+        <br/>
+        <iframe className="embed-responsive-item" src={`https://www.youtube.com/embed/${props.video.id.videoId}`} allowFullScreen></iframe>
+        <br/>
       </div>
     )
   }

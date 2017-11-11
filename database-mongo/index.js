@@ -52,18 +52,23 @@ var Item = mongoose.model('Item', itemSchema);
 //With Promises
 var selectAll = ()=>{
   return new Promise((resolve,reject)=>{
-    resolve(Item.find({}));
+    resolve(Item.find({}).limit(50));
   })
 };
 
 var clearDb = () =>{
+  return new Promise((resolve, reject)=>{
   db.items.remove({});
+  });
 }
+
+
 
 //Pass save an array of items
 let newItem;
 
 let save = (items) => {
+  return new Promise((resolve,reject) => {
   items.forEach((item)=>{
     newItem = new Item({
     title: item.snippet.title, //item.snippet.title
@@ -71,13 +76,16 @@ let save = (items) => {
     videoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, // 'https://www.youtube.com/watch?v='+ item.id.videoId
     channelTitle:item.snippet.channelId, //item.snippet.channelId
     publishedAt: item.snippet.publishedAt, //item.snippet.publishedAt
-  })
+    })
   
-  newItem.save((err,data) =>{
-    if (err) {throw err};
+    newItem.save((err,data) =>{
+      if (err) {throw err};
+    });
   });
-  });
+})
 }
 
 
 module.exports.selectAll = selectAll;
+module.exports.save = save;
+module.exports.clearDb = clearDb;

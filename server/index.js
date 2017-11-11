@@ -38,6 +38,11 @@ app.post('/items', (req, res) => {
   //This will have to get the search term, then query the youtube api for a search object
   console.log('In the post');
   console.log('req.body', req.body);
+  if (req.body.query === '!clear') {
+    items.clearDB().then(()=>{
+      res.end();
+    })
+  }
   // let queryData = {
   //   q: req.body.query,
   //   maxResults: 5,
@@ -50,7 +55,9 @@ app.post('/items', (req, res) => {
     //Now have access to this in the promise
       //Can put them into the database now once I import database file
         //db.save them;
-        console.log(videos);
+        items.save(videos).then(()=>{
+          res.end();
+        })
         
     
     
