@@ -15,7 +15,8 @@ db.once('open', function() {
 var itemSchema = mongoose.Schema({
   title: String, //item.snippet.title
   description: String, //item.snippet.description
-  videoUrl: String, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+  fullVideoUrl: String, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+  videoUrl: String,
   channelTitle: String, //item.snippet.channelId
   publishedAt: String //item.snippet.publishedAt
 });
@@ -58,11 +59,15 @@ var selectAll = ()=>{
 
 var clearDb = () =>{
   return new Promise((resolve, reject)=>{
-  db.items.remove({});
+  resolve(Item.remove({}));
   });
 }
 
-
+var randomizeDb = () =>{
+  return new Promise((resolve, reject)=>{
+  resolve(Item.aggregate({$sample:{size:1}}));
+  });
+}
 
 //Pass save an array of items
 let newItem;
@@ -73,14 +78,18 @@ let save = (items) => {
     newItem = new Item({
     title: item.snippet.title, //item.snippet.title
     description: item.snippet.description, //item.snippet.description
-    videoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+    fullVideoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, // 'https://www.youtube.com/watch?v='+ item.id.videoId
+    videoUrl: item.id.videoId,
     channelTitle:item.snippet.channelId, //item.snippet.channelId
     publishedAt: item.snippet.publishedAt, //item.snippet.publishedAt
     })
-  
-    newItem.save((err,data) =>{
-      if (err) {throw err};
-    });
+    //let query = item.snippet.description;
+    Item.findOneAndUpdate({'title':newItem.title}, {title: item.snippet.title,description: item.snippet.description,fullVideoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, videoUrl: item.id.videoId, channelTitle:item.snippet.channelId,publishedAt: item.snippet.publishedAt}, {upsert:true}, (err,doc)=>{
+      if(err) {throw err};
+    })
+    // newItem.save({'_id': item._id},(err,data) =>{
+    //   if (err) {throw err};
+    // });
   });
 })
 }
@@ -89,3 +98,4 @@ let save = (items) => {
 module.exports.selectAll = selectAll;
 module.exports.save = save;
 module.exports.clearDb = clearDb;
+module.exports.randomizeDb = randomizeDb;

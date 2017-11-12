@@ -6,7 +6,7 @@ const searchYouTube= require('youtube-search-api-with-axios');
 
 let getVideosByQuery = (query) => {
   return new Promise((resolve,reject) => {
-      searchYouTube({key: config.YOUTUBE_KEY, q: query, maxResults: 5, chart: 'mostPopular'}, (videos) => {
+      searchYouTube({key: config.YOUTUBE_KEY, q: query, maxResults: 3, chart: 'mostPopular'}, (videos) => {
             resolve(videos);
         });
   });

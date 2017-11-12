@@ -41,6 +41,9 @@ class Searches extends React.Component{
 
     <div>
       <br/>
+      Type in a search to add to your favorites, or "!clear" to clear your favorites. Default videos are the most Popular.
+      <br/>
+      <br/>
           Query Search: <input type='text' value={this.state.ingredientQuery} onChange={this.changeQuery}/>
       <button onClick = {this.searchQuery}> Add by Query </button>
           

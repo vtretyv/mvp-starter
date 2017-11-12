@@ -38,11 +38,15 @@ app.post('/items', (req, res) => {
   //This will have to get the search term, then query the youtube api for a search object
   console.log('In the post');
   console.log('req.body', req.body);
+  
   if (req.body.query === '!clear') {
-    items.clearDB().then(()=>{
+    items.clearDb().then(()=>{
       res.end();
+    }).catch(()=>{
+      console.log('In the clear error');
     })
   }
+  else{
   // let queryData = {
   //   q: req.body.query,
   //   maxResults: 5,
@@ -55,17 +59,16 @@ app.post('/items', (req, res) => {
     //Now have access to this in the promise
       //Can put them into the database now once I import database file
         //db.save them;
-        items.save(videos).then(()=>{
-          res.end();
-        })
+    items.save(videos).then(()=>{
+      res.end();
+    })
         
     
-    
+    res.end();
   })
-  // searchYouTube({key: config.YOUTUBE_KEY, q: req.body.query, maxResults: 5, chart: 'mostPopular'}, (videos) => {
-  //         console.log(videos);
-  //     });
-  res.end();
+
+  }
+  // res.end();
 });
 app.get('/items', function (req, res) {
 
@@ -80,8 +83,16 @@ app.get('/items', function (req, res) {
     res.status(200);
     res.json(results);
     // res.json("[{user:'vlad'}]");
+  }).throw(()=>{
+    res.end();
   })
 });
+
+app.get('/random', function (req,res) {
+  items.randomizeDb().then((result)=>{
+    res.json(result);
+  })
+})
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
