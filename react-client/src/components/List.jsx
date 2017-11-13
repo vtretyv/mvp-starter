@@ -3,8 +3,8 @@ import ListItem from './ListItem.jsx';
 
 const List = (props) => (
   <div>
-    <h4> Enter Either a query term or a channel term</h4>
-    There are { props.items.length } videos in your favorited playlist.
+    There are { props.items.length } videos in your favorited playlist. Here are the titles:
+    <br/><br/>
     {props.items.map((item,iter) => <ListItem item={item} key={iter}/>)}
   </div>
 )

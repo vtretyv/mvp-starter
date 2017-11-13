@@ -47,13 +47,13 @@ class Searches extends React.Component{
           Query Search: <input type='text' value={this.state.ingredientQuery} onChange={this.changeQuery}/>
       <button onClick = {this.searchQuery}> Add by Query </button>
           
-    <br/>
-        Channel Search: <input type='text' value={this.state.dishQuery} onChange={this.changeChannel}/>
-      <button onClick = {this.searchChannel}> Add by Channel </button>
     </div>
     )
-}
+  }
 }
 
+{/* <br/>
+    Channel Search: <input type='text' value={this.state.dishQuery} onChange={this.changeChannel}/>
+  <button onClick = {this.searchChannel}> Add by Channel </button> */}
 
 export default Searches;   

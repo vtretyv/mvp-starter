@@ -36,14 +36,15 @@ app.post('/items', (req, res) => {
       //Create a button that takes the top N videos of the favorite list, and returns a list of related videos.
       
   //This will have to get the search term, then query the youtube api for a search object
-  console.log('In the post');
-  console.log('req.body', req.body);
+  // console.log('In the post');
+  // console.log('req.body', req.body);
   
   if (req.body.query === '!clear') {
     items.clearDb().then(()=>{
       res.end();
     }).catch(()=>{
       console.log('In the clear error');
+      res.end();
     })
   }
   else{
@@ -61,9 +62,13 @@ app.post('/items', (req, res) => {
         //db.save them;
     items.save(videos).then(()=>{
       res.end();
+    }).catch(()=>{
+      res.end();
     })
         
     
+    res.end();
+  }).catch(()=>{
     res.end();
   })
 
