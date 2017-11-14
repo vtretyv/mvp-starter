@@ -3,7 +3,7 @@ import ListItem from './ListItem.jsx';
 
 const List = (props) => (
   <div>
-    There are { props.items.length } videos in your favorited playlist. Here are the titles:
+    There are { props.items.length } videos in your favorites. Here are the titles:
     <br/><br/>
     {props.items.map((item,iter) => <ListItem item={item} key={iter}/>)}
   </div>

@@ -18,7 +18,8 @@ var itemSchema = mongoose.Schema({
   fullVideoUrl: String, // 'https://www.youtube.com/watch?v='+ item.id.videoId
   videoUrl: String,
   channelTitle: String, //item.snippet.channelId
-  publishedAt: String //item.snippet.publishedAt
+  publishedAt: String, //item.snippet.publishedAt
+  thumbnail: String
 });
 
 var Item = mongoose.model('Item', itemSchema);
@@ -82,9 +83,10 @@ let save = (items) => {
     videoUrl: item.id.videoId,
     channelTitle:item.snippet.channelId, //item.snippet.channelId
     publishedAt: item.snippet.publishedAt, //item.snippet.publishedAt
+    thumbnail: item.snippet.thumbnails.default.url
     })
     //let query = item.snippet.description;
-    Item.findOneAndUpdate({'title':newItem.title}, {title: item.snippet.title,description: item.snippet.description,fullVideoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, videoUrl: item.id.videoId, channelTitle:item.snippet.channelId,publishedAt: item.snippet.publishedAt}, {upsert:true}, (err,doc)=>{
+    Item.findOneAndUpdate({'title':newItem.title}, {title: item.snippet.title,description: item.snippet.description,fullVideoUrl: 'https://www.youtube.com/watch?v='+ item.id.videoId, videoUrl: item.id.videoId, channelTitle:item.snippet.channelId,publishedAt: item.snippet.publishedAt, thumbnail:item.snippet.thumbnails.default.url}, {upsert:true}, (err,doc)=>{
       if(err) {throw err};
     })
     // newItem.save({'_id': item._id},(err,data) =>{

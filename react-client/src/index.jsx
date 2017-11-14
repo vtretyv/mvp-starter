@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Searches from './components/Searches.jsx';
+import randomList from './components/randomList.jsx';
 
 const divStyle = {
   textAlign: 'center',
@@ -16,6 +17,7 @@ class App extends React.Component {
       playerHeight: 0,
       playerWidth: 0,
       randomVid:[{}],
+      randomVideos: [],
       playerDetail: 'none'
       //embedUrl: 'https://www.youtube.com/embed/'+window.context.state.randomVid[0].videoId,
     }
@@ -23,6 +25,7 @@ class App extends React.Component {
     this.pToggle = this.pToggle.bind(this);
     this.random = this.random.bind(this);
     this.search = this.search.bind(this);
+    this.back = this.back.bind(this);
   }
 
   componentDidMount() {
@@ -55,7 +58,7 @@ class App extends React.Component {
       Array.from(vidTitle).forEach((detail)=>{
         detail.style.display ='none';
       })
-      this.setState({randomVid:[{}]})
+      this.setState({randomVid:[{}], randomVideos:[]});
     }
     $.ajax({
       type:'POST',
@@ -104,6 +107,14 @@ class App extends React.Component {
       })
     }
   }
+
+  back () {
+    if (this.state.randomVideos.length > 1) {
+      let curIndex = this.state.randomVideos.length-1;
+      this.setState({randomVid: this.state.randomVideos[curIndex -1]});
+      this.setState({randomVideos: this.state.randomVideos.slice(0, curIndex)});
+    }
+  }
   random () {
     // console.log('random this',this);
     // if (this.state.randomVid !== [] || this.state.randomVid !== [{}]) {
@@ -120,7 +131,8 @@ class App extends React.Component {
       success: (data)=> {
         console.log('GET SUCCESS', data, typeof data);
         window.context.setState({
-          randomVid: data
+          randomVid: data,
+          //randomVideos: this.state.randomVideos.push(data)
         });
       },
       error: ()=>{
@@ -144,11 +156,14 @@ class App extends React.Component {
         <div className='pDetails' style={{display:'none'}}> Video Title: {this.state.randomVid[0].title}</div>
         <iframe height={this.state.playerHeight} width={this.state.playerWidth} className="embed-responsive-item" src={`https://www.youtube.com/embed/${this.state.randomVid[0].videoUrl}`} allowFullScreen></iframe>
         <div className='pDetails' style = {{display:'none'}}>Video Description: {this.state.randomVid[0].description}</div>
+        <randomList items = {this.state.randomVideos}/>
+        <br/><br/>
       </div>
     )
   }
 }
 
+//<button onClick={this.back}> Back to last random video </button>
 //<iframe height="360" width="640" className="embed-responsive-item" src={this.state.embedUrl} allowFullScreen></iframe>
 
 

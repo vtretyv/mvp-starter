@@ -18,27 +18,28 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
-
+  Youtube Randomizer
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
+  For people who have trouble choosing what to watch on their break.
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
+  Having troubling deciding on a video to watch? Let this app choose for you. Create a list of the most popular videos by query, then use the random video button to display one of those videos at random.
 ## Problem ##
   > Describe the problem your product solves.
-
+  People who have troubling choosing what to watch can now give a few categories and have this app decide for them.
 ## Solution ##
   > Describe how your product elegantly solves the problem.
-
+  It allows a user to query the youtube api and fill up a database with youtube search objects. When they feel confident they have enough videos in their favorites, they can toggle the player on and hit random video to have one selected for them.
 ## Quote from You ##
   > A quote from a spokesperson in your company.
-
+  An app perfect for those who have difficulty deciding what to watch on youtube.
 ## How to Get Started ##
   > Describe how easy it is to get started.
-
+  Input a query and hit search. Toggle the player on, then press the random video button to have one of the videos from the query rendered into the embed player.
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-
+  "I don't have much time for my breaks, and I have trouble deciding what to watch. This app lets me create a list of videos and then does the choosing for me!"
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  

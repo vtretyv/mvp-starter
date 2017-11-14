@@ -30,6 +30,7 @@ class Searches extends React.Component{
   
   searchQuery() {
     this.props.onSearch(this.state.ingredientQuery);
+    this.setState({ingredientQuery:''});
   }
   
   searchChannel() {
